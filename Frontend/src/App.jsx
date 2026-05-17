@@ -58,7 +58,7 @@ function sum(...numbers) {
             onClick={getReview}
             disabled={isLoading}
           >
-            {isLoading ? 'Loading...' : 'Review'}<div> <input type="file"/>        </div>
+            {isLoading ? 'Loading...' : 'Review'}
           </div>
           
 

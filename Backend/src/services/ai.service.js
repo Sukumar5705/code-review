@@ -1,11 +1,16 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Create the client with your API key
+
+
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+require("dotenv").config();
+
+// Create Gemini client
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel(
-  {
-  model: "gemini-2.5-flash" ,
-  systemInstruction:`
+
+// Load model
+const model = genAI.getGenerativeModel({
+  model: "gemini-2.5-flash",
+  systemInstruction: `
 Here’s a solid system instruction for your AI code reviewer:
 
                 AI System Instruction: Senior Code Reviewer (7+ Years of Experience)
@@ -79,17 +84,19 @@ Here’s a solid system instruction for your AI code reviewer:
 
                 Would you like any adjustments based on your specific needs? 🚀 
     `
-  
-
 });
 
-
+// Generate response
 async function generateContent(prompt) {
-  // Load the model
-  
-    const result = await model.generateContent(prompt); 
-  // Generate content
-  return result.response.text()
+  try {
+    const result = await model.generateContent(prompt);
 
+    return result.response.text();
+
+  } catch (error) {
+    console.log("Gemini Error:", error);
+    return "Error generating response";
+  }
 }
-module.exports = generateContent
+
+module.exports = generateContent;
