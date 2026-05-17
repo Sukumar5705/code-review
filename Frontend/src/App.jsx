@@ -26,7 +26,7 @@ function sum(...numbers) {
   async function getReview() {
     setIsLoading(true)
     try {
-      const response = await axios.post('http://localhost:3000/ai/get-review', { code })
+      const response = await axios.post('https://code-review-1qgk.onrender.com/ai/get-review', { code })
       setReview(response.data)
     } catch (error) {
       setReview('Error fetching review: ' + error.message)
